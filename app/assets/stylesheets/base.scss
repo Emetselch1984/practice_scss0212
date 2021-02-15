@@ -1,0 +1,175 @@
+@mixin animation(
+  $name,
+  $duration: 1.4s,
+  $timing-function: ease,
+  $delay: 0s,
+  $iteration-count: 1,
+  $direction: normal,
+  $fill-mode: none
+) {
+  animation: {
+    name: $name;
+    duration: $duration;
+    timing-function: $timing-function;
+    delay: $delay;
+    iteration-count: $iteration-count;
+    direction: $direction;
+    fill-mode: $fill-mode;
+  }
+}
+section#spinner {
+  text-align: center;
+
+  #container {
+    div {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background-color: black;
+      border-radius: 50%;
+      animation: sk-bouncedelay 1.4s infinite;
+      @for $i from 1 through 2 {
+        &:nth-child(#{$i}) {
+          animation-delay: -0.32s / $i;
+        }
+      }
+    }
+  }
+  .rect{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    @include animation($name: sk-bouncedelay2);
+
+  }
+  .paused {
+    animation-play-state: paused;
+  }
+  #various-buttons{
+    display: flex;
+    justify-content: center;
+    .item{
+      flex-basis: 18%;
+      .spinner {
+        width: 40px;
+        height: 40px;
+        background-color: #333;
+        margin: 100px auto;
+        @include animation(
+                $name: sk-rotateplane,
+                $duration: 1.2s,
+                $iteration-count: infinite,
+                $timing-function: ease-in-out
+        );
+      }
+      .double-spinner {
+        width: 40px;
+        height: 40px;
+        margin: 100px auto;
+        position: relative;
+        div {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          background-color: #333;
+          opacity: 0.6;
+          top: 0;
+          left: 0;
+          @include animation(
+                  $name: sk-bounce,
+                  $duration: 2s,
+                  $iteration-count: infinite,
+                  $timing-function: ease-in-out
+          );
+          &:nth-child(2) {
+            animation-delay: -1s;
+          }
+        }
+      }
+      .rect-spinner {
+        margin: 100px auto;
+        width: 50px;
+        height: 40px;
+        text-align: center;
+        letter-spacing: -2px;
+
+        div{
+          background-color: #333;
+          height: 100%;
+          width: 6px;
+          display: inline-block;
+          @include animation(
+                  $name: sk-stretchdelay,
+                  $duration: 1.2s,
+                  $iteration-count: infinite,
+                  $timing-function: ease-in-out
+          );
+          @for $i from 1 through 5 {
+            &:nth-child(#{$i}) {
+              animation-delay: -1.3s + $i * 0.1s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes sk-bouncedelay {
+  0% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes sk-bouncedelay2 {
+  from {
+    transform: scale(0);
+    background-color: black;
+  }
+
+  to {
+    transform: scale(1);
+    background-color: green;
+  }
+}
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+  }
+}
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+@keyframes sk-stretchdelay {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1);
+  }
+}
