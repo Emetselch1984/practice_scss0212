@@ -23,6 +23,68 @@ $cWhite: white;
   max-width: 100%;
   vertical-align: bottom;
 }
+section#animation-java{
+  .item{
+    position: relative;
+    height: 100vh;
+    background-color: teal;
+
+    &:nth-child(2) {
+      background-color: mediumvioletred;
+    }
+    &:nth-child(3) {
+      background-color: orange;
+    }
+  }
+}
+.animate-title-java{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  opacity: 0;
+  font-size: 2em;
+
+  &.inview {
+    opacity: 1;
+
+    & .char {
+      display: inline-block;
+    }
+  }
+
+  & .char {
+    opacity: 0;
+  }
+}
+.animate-title-java.inview .char {
+  @include animation(
+          $name: kf-animate-chars,
+          $duration: 0.5s,
+          $timing-function: cubic-bezier(0.39, 1.57, 0.58, 1),
+          $fill-mode: both
+  );
+
+  @for $i from 1 through 30 {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * 0.04s;
+    }
+  }
+}
+
+@keyframes kf-animate-chars {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 section#observer{
   width: 100%;
   height: 300vh;
@@ -113,35 +175,36 @@ section#animation{
   background-color: teal;
   height: 100vh;
   position: relative;
-  .animate-title{
-    transform: translate(-50%, -50%);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 2em;
-    color: white;
-    opacity: 0;
-    &.inview{
-      opacity: 1;
-      .char {
-        display: inline-block;
+}
+.animate-title{
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 2em;
+  color: white;
+  opacity: 0;
+  &.inview{
+    opacity: 1;
+    .char {
+      display: inline-block;
 
-        @include animation(
-                $name: kf-animate-chars,
-                $duration: 0.5s,
-                  //cubic-bezierの値は画面を見ながら変えていく
-                $timing-function: cubic-bezier(2, 3, 0.58, 1),
-                $fill-mode: both
-        );
-        @for $i from 1 through 9 {
-          &:nth-child(#{$i}) {
-            animation-delay: $i * 0.04s;
-          }
+      @include animation(
+              $name: kf-animate-chars,
+              $duration: 0.5s,
+                //cubic-bezierの値は画面を見ながら変えていく
+              $timing-function: cubic-bezier(2, 3, 0.58, 1),
+              $fill-mode: both
+      );
+      @for $i from 1 through 9 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.04s;
         }
       }
     }
   }
 }
+
 section#spinner {
   text-align: center;
 
