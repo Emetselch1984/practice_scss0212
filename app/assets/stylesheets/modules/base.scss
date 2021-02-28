@@ -1,24 +1,3 @@
-$cBlack: black;
-$cWhite: white;
-@mixin animation(
-  $name,
-  $duration: 1.4s,
-  $timing-function: ease,
-  $delay: 0s,
-  $iteration-count: 1,
-  $direction: normal,
-  $fill-mode: none
-) {
-  animation: {
-    name: $name;
-    duration: $duration;
-    timing-function: $timing-function;
-    delay: $delay;
-    iteration-count: $iteration-count;
-    direction: $direction;
-    fill-mode: $fill-mode;
-  }
-}
 .img{
   max-width: 100%;
   vertical-align: bottom;
@@ -27,16 +6,17 @@ section#animation-java{
   .item{
     position: relative;
     height: 100vh;
-    background-color: teal;
+    background-color: $cTeal;
 
     &:nth-child(2) {
-      background-color: mediumvioletred;
+      background-color: $cMediumvioletred;
     }
     &:nth-child(3) {
-      background-color: orange;
+      background-color: $cOrange ;
     }
   }
 }
+
 .animate-title-java{
   position: absolute;
   top: 50%;
@@ -58,6 +38,7 @@ section#animation-java{
     opacity: 0;
   }
 }
+
 .animate-title-java.inview .char {
   @include animation(
           $name: kf-animate-chars,
@@ -73,17 +54,7 @@ section#animation-java{
   }
 }
 
-@keyframes kf-animate-chars {
-  0% {
-    opacity: 0;
-    transform: translateY(-50%);
-  }
 
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 section#observer{
   width: 100%;

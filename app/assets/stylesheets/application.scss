@@ -14,6 +14,9 @@
  *= require_self
  */
 @import "bootstrap";
-@import "mobile-menu";
-@import "appear";
-@import "base";
+@import "modules/variables";
+@import "modules/mixin";
+@import "modules/animation";
+@import "modules/appear";
+@import "modules/mobile-menu";
+@import "modules/base";
